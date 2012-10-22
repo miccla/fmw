@@ -77,7 +77,7 @@ public class MainMenuActivity extends AbstractAsyncActivity {
 	}
 
 	private void showFacebookOptions() {
-		String[] options = { "Disconnect", "Home (left as an example)"};
+		String[] options = { "Disconnect", "Browse Hikes", "Facebook Home (left as an example)"};
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, options);
 		ListView listView = (ListView) this.findViewById(R.id.main_menu_activity_options_list);
 		listView.setAdapter(arrayAdapter);
@@ -92,9 +92,14 @@ public class MainMenuActivity extends AbstractAsyncActivity {
 					break;
 				case 1:
 					intent = new Intent();
+					intent.setClass(parentView.getContext(), BrowseHikesActivity.class);
+					startActivity(intent);
+					break;	
+				case 2:
+					intent = new Intent();
 					intent.setClass(parentView.getContext(), FacebookHomeFeedActivity.class);
 					startActivity(intent);
-					break;				
+					break;	
 				default:
 					break;
 				}
