@@ -35,9 +35,9 @@ public class MainMenuActivity extends AbstractAsyncActivity {
 	public void onStart() {
 		super.onStart();
 		if (isConnected()) {
-			showFacebookOptions();
+			showAuthenticatedOptions();
 		} else {
-			showConnectOption();
+			showAnonymousOptions();
 		}
 	}
 
@@ -57,18 +57,24 @@ public class MainMenuActivity extends AbstractAsyncActivity {
 		this.connectionRepository.removeConnections(this.connectionFactory.getProviderId());
 	}
 
-	private void showConnectOption() {
-		String[] options = { "Connect" };
+	private void showAnonymousOptions() {
+		String[] options = { "Connect", "Browse Hikes" };
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, options);
 		ListView listView = (ListView) this.findViewById(R.id.main_menu_activity_options_list);
 		listView.setAdapter(arrayAdapter);
 
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parentView, View childView, int position, long id) {
+				Intent intent;
 				switch (position) {
 				case 0:
 					displayFacebookAuthorization();
 					break;
+				case 1:
+					intent = new Intent();
+					intent.setClass(parentView.getContext(), BrowseHikesActivity.class);
+					startActivity(intent);
+					break;	
 				default:
 					break;
 				}
@@ -76,7 +82,7 @@ public class MainMenuActivity extends AbstractAsyncActivity {
 		});
 	}
 
-	private void showFacebookOptions() {
+	private void showAuthenticatedOptions() {
 		String[] options = { "Disconnect", "Browse Hikes", "Facebook Home (left as an example)"};
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, options);
 		ListView listView = (ListView) this.findViewById(R.id.main_menu_activity_options_list);
@@ -88,7 +94,7 @@ public class MainMenuActivity extends AbstractAsyncActivity {
 				switch (position) {
 				case 0:
 					disconnect();
-					showConnectOption();
+					showAnonymousOptions();
 					break;
 				case 1:
 					intent = new Intent();

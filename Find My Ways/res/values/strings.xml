@@ -4,5 +4,7 @@
     <string name="app_name">Find My Ways</string>
     
     <string name="app_description">A pocket hiking guide for the highest quality trails in Ireland</string>
+    
+    <string name="turn_gps_on">Turn GPS on to improve location accuracy?</string>
 
 </resources>
